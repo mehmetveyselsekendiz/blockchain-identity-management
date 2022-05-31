@@ -1,6 +1,6 @@
 // ref: https://www.youtube.com/watch?v=zVqczFZr124
 
-import sha256 from 'crypto-js/sha256';
+var sha256 = require("crypto-js/sha256");
 
 class Block{
     // index: where the block sits on the chain
@@ -17,6 +17,6 @@ class Block{
     }
 
     calculate_hash(){
-        return sha256(this.index + this.timestamp + JSON.stringify(this.data) + this.previousHash).toString()
+        return sha256(this.index + JSON.stringify(this.timestamp) + JSON.stringify(this.data) + this.previousHash).toString()
     }
 }
