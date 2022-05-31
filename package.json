@@ -1,0 +1,19 @@
+{
+  "name": "blockchain-identity-management",
+  "version": "1.0.0",
+  "description": "Identity Management Blockchain Implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mehmetveyselsekendiz/blockchain-identity-management.git"
+  },
+  "author": "mvs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mehmetveyselsekendiz/blockchain-identity-management/issues"
+  },
+  "homepage": "https://github.com/mehmetveyselsekendiz/blockchain-identity-management#readme"
+}
