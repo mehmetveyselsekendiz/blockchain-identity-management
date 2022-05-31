@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mehmetveyselsekendiz/blockchain-identity-management/issues"
   },
-  "homepage": "https://github.com/mehmetveyselsekendiz/blockchain-identity-management#readme"
+  "homepage": "https://github.com/mehmetveyselsekendiz/blockchain-identity-management#readme",
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
 }
