@@ -7,7 +7,7 @@ class Block{
     // timestamp: when the block is created
     // data: any type of data you asossiate with the block
     // previousHash: is a string that contains the hash of the block before this one
-    constructor(index = 0, data, previousHash = ''){
+    constructor({index = 0, data, previousHash = ''}){
         this.index = index
         this.timestamp = new Date()
         this.data = data
@@ -27,7 +27,7 @@ class Blockchain{
     }
 
     create_genesis_block(){
-        return new Block(data = "Genesis Block")
+        return new Block({data : "Genesis Block"})
     }
 
     get_latest_block(){
@@ -38,5 +38,12 @@ class Blockchain{
         new_block.previousHash = this.get_latest_block().hash
         new_block.hash = new_block.calculate_hash()
         new_block.index = this.get_latest_block().index + 1
+        this.chain.push(new_block)
     }
 }
+
+const mvs_coin = new Blockchain()
+mvs_coin.add_block(new Block({data : {amount: 5}}))
+mvs_coin.add_block(new Block({data : {amount: 10}}))
+
+console.log(JSON.stringify(mvs_coin, null, 4))
