@@ -36,9 +36,23 @@ class Blockchain{
 
     add_block(new_block){
         new_block.previousHash = this.get_latest_block().hash
-        new_block.hash = new_block.calculate_hash()
         new_block.index = this.get_latest_block().index + 1
+        new_block.hash = new_block.calculate_hash()
         this.chain.push(new_block)
+    }
+
+    is_chain_valid(){
+        for(let i = 1; i < this.chain.length; i++){
+            const current_block = this.chain[i]
+            const previous_block = this.chain[i-1]
+            if(current_block.hash !== current_block.calculate_hash()){
+                return false
+            }
+            if(current_block.previousHash !== previous_block.hash){
+                return false
+            }
+        }
+        return true
     }
 }
 
@@ -46,4 +60,5 @@ const mvs_coin = new Blockchain()
 mvs_coin.add_block(new Block({data : {amount: 5}}))
 mvs_coin.add_block(new Block({data : {amount: 10}}))
 
-console.log(JSON.stringify(mvs_coin, null, 4))
+//console.log(JSON.stringify(mvs_coin, null, 4))
+console.log("Is blockchain is valid? " + mvs_coin.is_chain_valid())
