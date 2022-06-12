@@ -73,7 +73,14 @@ class Blockchain{
         this.pending_tansactions.push(transaction)
     }
 
-
+    get_address_ballance(address){
+        let balance = 0
+        this.chain.forEach(block=>block.transactions.forEach(transaction=>{
+            if(transaction.from_address === address) balance -= transaction.amount
+            if(transaction.to_address === address) balance += transaction.amount
+        }))
+        return balance
+    }
 
     is_chain_valid(){
         for(let i = 1; i < this.chain.length; i++){
