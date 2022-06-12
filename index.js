@@ -2,6 +2,14 @@
 
 var sha256 = require("crypto-js/sha256");
 
+class Transaction{
+    constructor(from_address, to_address, amount){
+        this.from_address = from_address
+        this.to_address = to_address
+        this.amount = amount
+    }
+}
+
 class Block{
     // index: where the block sits on the chain
     // timestamp: when the block is created
