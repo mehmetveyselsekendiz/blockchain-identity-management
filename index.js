@@ -7,10 +7,10 @@ class Block{
     // timestamp: when the block is created
     // data: any type of data you asossiate with the block
     // previousHash: is a string that contains the hash of the block before this one
-    constructor({transaction, previousHash = ''}){
+    constructor(transaction){
         this.timestamp = new Date()
         this.transaction = transaction
-        this.previousHash = previousHash
+        this.previousHash = ""
         //hash: this will contain the hash of the block
         this.hash = this.calculate_hash()
         this.nonce = 0
