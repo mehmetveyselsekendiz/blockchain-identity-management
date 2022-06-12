@@ -10,7 +10,7 @@ class Blockchain{
     }
 
     create_genesis_block(){
-        return new Block({data : "Genesis Block"})
+        return new Block([{data : "Genesis Block"}])
     }
 
     get_latest_block(){
