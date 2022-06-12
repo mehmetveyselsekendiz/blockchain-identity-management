@@ -1,4 +1,4 @@
-var sha256 = require("crypto-js/sha256");
+const sha256 = require("crypto-js/sha256");
 
 class Block{
     // index: where the block sits on the chain
@@ -23,6 +23,13 @@ class Block{
             this.nonce++
             this.hash = this.calculate_hash()
         }
+    }
+
+    has_valid_transactions(){
+        this.transactions.forEach(transaction=>{
+            if(!transaction.isValid()) return false
+        })
+        return true
     }
 }
 
