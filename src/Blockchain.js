@@ -47,12 +47,13 @@ class Blockchain{
         for(let i = 1; i < this.chain.length; i++){
             const current_block = this.chain[i]
             const previous_block = this.chain[i-1]
-            if(current_block.hash !== current_block.calculate_hash()){
-                return false
-            }
-            if(current_block.previousHash !== previous_block.hash){
-                return false
-            }
+
+            if(!current_block.has_valid_transactions()) return false
+
+            if(current_block.hash !== current_block.calculate_hash()) return false
+            
+            if(current_block.previousHash !== previous_block.hash) return false
+            
         }
         return true
     }
