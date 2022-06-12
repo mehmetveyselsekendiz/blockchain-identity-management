@@ -24,6 +24,7 @@ class Blockchain{
 
     mine_pending_tansactions(revard_address){
         const block = new Block(this.pending_tansactions)
+        block.previousHash = this.get_latest_block().hash
         block.mine_block(this.nzeros)
 
         console.log("Block mined")
