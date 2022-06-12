@@ -69,6 +69,11 @@ class Blockchain{
         ]
     }
 
+    create_transaction(transaction){
+        this.pending_tansactions.push(transaction)
+    }
+
+
 
     is_chain_valid(){
         for(let i = 1; i < this.chain.length; i++){
