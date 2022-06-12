@@ -57,6 +57,18 @@ class Blockchain{
        // new_block.mine_block(this.nzeros)
         //this.chain.push(new_block)}
 
+    mine_pending_tansactions(revard_address){
+        const block = new Block(this.pending_tansactions)
+        block.mine_block(this.nzeros)
+
+        console.log("Block mined")
+        this.chain.push(block)
+
+        this.pending_tansactions = [
+            new Transaction(null, revard_address, this.mining_revard)
+        ]
+    }
+
 
     is_chain_valid(){
         for(let i = 1; i < this.chain.length; i++){
