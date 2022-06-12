@@ -1,0 +1,6 @@
+sample_key = {
+public_key : "048a0b435ee49f36ab85aa1f5f6949e7b19e09bd6c59fc69022355771fea7e52dd0a925fa521a3ac3822098edf422270ab07bd1be2ddafe80cae86391d10977ae8",
+private_key : "efd087cb88064c32d1675696c0dd19521fe437ccf016efd6a9d967e07253cf1a"
+}
+
+module.exports = sample_key
