@@ -7,10 +7,9 @@ class Block{
     // timestamp: when the block is created
     // data: any type of data you asossiate with the block
     // previousHash: is a string that contains the hash of the block before this one
-    constructor({index = 0, data, previousHash = ''}){
-        this.index = index
+    constructor({transaction, previousHash = ''}){
         this.timestamp = new Date()
-        this.data = data
+        this.transaction = transaction
         this.previousHash = previousHash
         //hash: this will contain the hash of the block
         this.hash = this.calculate_hash()
@@ -18,7 +17,7 @@ class Block{
     }
 
     calculate_hash(){
-        return sha256(this.index + JSON.stringify(this.timestamp) + JSON.stringify(this.data) + this.previousHash + this.nonce).toString()
+        return sha256(JSON.stringify(this.timestamp) + JSON.stringify(this.transaction) + this.previousHash + this.nonce).toString()
     }
 
     mine_block(nzeros){
@@ -45,7 +44,6 @@ class Blockchain{
 
     add_block(new_block){
         new_block.previousHash = this.get_latest_block().hash
-        new_block.index = this.get_latest_block().index + 1
         new_block.mine_block(this.nzeros)
         this.chain.push(new_block)
     }
@@ -69,5 +67,5 @@ const mvs_coin = new Blockchain()
 mvs_coin.add_block(new Block({data : {amount: 5}}))
 mvs_coin.add_block(new Block({data : {amount: 10}}))
 
-//console.log(JSON.stringify(mvs_coin, null, 4))
+console.log(JSON.stringify(mvs_coin, null, 4))
 console.log("Is blockchain is valid? " + mvs_coin.is_chain_valid())
