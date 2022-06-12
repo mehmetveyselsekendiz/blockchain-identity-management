@@ -15,9 +15,9 @@ class Block{
     // timestamp: when the block is created
     // data: any type of data you asossiate with the block
     // previousHash: is a string that contains the hash of the block before this one
-    constructor(transaction){
+    constructor(transactions){
         this.timestamp = new Date()
-        this.transaction = transaction
+        this.transactions = transactions
         this.previousHash = ""
         //hash: this will contain the hash of the block
         this.hash = this.calculate_hash()
@@ -39,7 +39,9 @@ class Block{
 class Blockchain{
     constructor(){
         this.chain = [this.create_genesis_block()]
+        this.pending_tansactions = []
         this.nzeros = 4
+        this.mining_revard = 1
     }
 
     create_genesis_block(){
@@ -50,11 +52,11 @@ class Blockchain{
         return this.chain[this.chain.length-1]
     }
 
-    add_block(new_block){
-        new_block.previousHash = this.get_latest_block().hash
-        new_block.mine_block(this.nzeros)
-        this.chain.push(new_block)
-    }
+    //add_block(new_block){
+     //   new_block.previousHash = this.get_latest_block().hash
+       // new_block.mine_block(this.nzeros)
+        //this.chain.push(new_block)}
+
 
     is_chain_valid(){
         for(let i = 1; i < this.chain.length; i++){
@@ -72,8 +74,11 @@ class Blockchain{
 }
 
 const mvs_coin = new Blockchain()
-mvs_coin.add_block(new Block({data : {amount: 5}}))
-mvs_coin.add_block(new Block({data : {amount: 10}}))
+mvs_coin.create_transaction(new Transaction("user1", "user2", 100))
+mvs_coin.create_transaction(new Transaction("user2", "user3", 100))
+
+console.log("miner starts...")
+mvs_coin.mine_pending_tansactions("miner")
 
 console.log(JSON.stringify(mvs_coin, null, 4))
 console.log("Is blockchain is valid? " + mvs_coin.is_chain_valid())
