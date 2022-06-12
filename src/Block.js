@@ -27,7 +27,7 @@ class Block{
 
     has_valid_transactions(){
         this.transactions.forEach(transaction=>{
-            if(!transaction.isValid()) return false
+            if(!transaction.is_valid()) return false
         })
         return true
     }
