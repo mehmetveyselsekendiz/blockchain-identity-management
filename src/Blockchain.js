@@ -30,7 +30,10 @@ class Blockchain{
         ]
     }
 
-    create_transaction(transaction){
+    add_transaction(transaction){
+        if(!transaction.from_address || transaction.to_address) throw new Error('Transaction must include from and to address.')
+        if(!transaction.is_valid()) throw new Error('Cannot add invalid transaction.')
+
         this.pending_tansactions.push(transaction)
     }
 
