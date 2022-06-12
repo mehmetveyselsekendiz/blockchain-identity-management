@@ -14,16 +14,25 @@ class Block{
         this.previousHash = previousHash
         //hash: this will contain the hash of the block
         this.hash = this.calculate_hash()
+        this.nonce = 0
     }
 
     calculate_hash(){
-        return sha256(this.index + JSON.stringify(this.timestamp) + JSON.stringify(this.data) + this.previousHash).toString()
+        return sha256(this.index + JSON.stringify(this.timestamp) + JSON.stringify(this.data) + this.previousHash + this.nonce).toString()
+    }
+
+    mine_block(nzeros){
+        while(this.hash.substring(0, nzeros) !== Array(nzeros + 1).join('0')){
+            this.nonce++
+            this.hash = this.calculate_hash()
+        }
     }
 }
 
 class Blockchain{
     constructor(){
         this.chain = [this.create_genesis_block()]
+        this.nzeros = 4
     }
 
     create_genesis_block(){
@@ -37,7 +46,7 @@ class Blockchain{
     add_block(new_block){
         new_block.previousHash = this.get_latest_block().hash
         new_block.index = this.get_latest_block().index + 1
-        new_block.hash = new_block.calculate_hash()
+        new_block.mine_block(this.nzeros)
         this.chain.push(new_block)
     }
 
