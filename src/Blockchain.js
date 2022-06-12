@@ -17,11 +17,6 @@ class Blockchain{
         return this.chain[this.chain.length-1]
     }
 
-    //add_block(new_block){
-     //   new_block.previousHash = this.get_latest_block().hash
-       // new_block.mine_block(this.nzeros)
-        //this.chain.push(new_block)}
-
     mine_pending_tansactions(revard_address){
         const block = new Block(this.pending_tansactions)
         block.previousHash = this.get_latest_block().hash
