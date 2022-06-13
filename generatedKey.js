@@ -3,8 +3,12 @@ course1_key = {
     private_key : "427230ba1e21ca74db332cf562fd51d5274e39548d4c8b5e4fbbc6edb958ad41"
 }
 
-
 course2_key = {
+    public_key : "04eaf8cc55f8423264572a84af561fd2ffa0fb824f70ac59bd45a3362063be4f77e4415bb1e15053aaaa3258f5c12b1a9ad45d44f988893352e09ef9a66eb9f347",
+    private_key : "4d51ca9e131411ff6ac59d5517f5111f01a0b13169f4c87e0a41aca4a23d058d"
+}
+
+admin_key = {
     public_key : "04f81dbfd31117eb71dcfdfbe983778ec2c4c8d92d65bc28a0bce9363f45d4af5e6ff9a14c04d1f2b8338dd962b17b27e03b83b81ad8138d6b4f81db09aca42d67",
     private_key : "ba6dc7d2cc83ebef3f13117f3fb695978ff13cf47822ac873f90f36ccd61c5ca"
 }
@@ -16,4 +20,4 @@ student_key = {
 
 
 
-module.exports = {course1_key, course2_key, student_key}
+module.exports = {course1_key, admin_key, student_key, course2_key}
