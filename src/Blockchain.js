@@ -7,10 +7,11 @@ class Blockchain{
         this.pending_tansactions = []
         this.nzeros = 4
         this.mining_revard = 1
+        this.admin = "04f81dbfd31117eb71dcfdfbe983778ec2c4c8d92d65bc28a0bce9363f45d4af5e6ff9a14c04d1f2b8338dd962b17b27e03b83b81ad8138d6b4f81db09aca42d67"
     }
 
     create_genesis_block(){
-        return new Block([{data : "Genesis Block"}])
+        return new Block([{from_address: null, to_address: null, amount: 0, authority: [], register: "", data : "Genesis Block"}])
     }
 
     get_latest_block(){
@@ -91,6 +92,54 @@ class Blockchain{
         }))
 
         return transactions
+    }
+
+    add_operation(transaction){
+        if(transaction.from_address === this.admin){
+            if(transaction.to_address === null){
+                if(this.get_registration(transaction.register)) throw new Error('Student already registered')
+                else this.pending_tansactions.push(transaction)
+            }
+            else this.pending_tansactions.push(transaction)
+        }
+        else{
+            if(!transaction.from_address || !transaction.to_address) throw new Error('Transaction must include from and to address.')
+            if(!transaction.is_valid()) throw new Error('Cannot add invalid transaction.')
+            if(this.get_registration(transaction.from_address)){
+                const authority = this.get_course_authority(transaction.from_address)
+                if(authority.includes(transaction.to_address)){
+                    this.pending_tansactions.push(transaction)
+                }else{
+                    throw new Error('Not authorized')
+                }
+            }else{
+                throw new Error('Not registered')
+            }
+        }
+    }
+
+    get_course_authority(wallet){
+        let authority = []
+        this.chain.forEach(block=>block.transactions.forEach(transaction=>{
+            if(transaction.from_address === this.admin || transaction.to_address === wallet){
+                if(transaction.authority){
+                    authority = transaction.authority
+                }
+            }
+        }))
+        return authority    
+    }
+
+    get_registration(wallet){
+        const status = []
+        this.chain.forEach(block=>block.transactions.forEach(transaction=>{
+            if(transaction.from_address === this.admin && transaction.to_address === null){
+                if(transaction.register === wallet){
+                    status.push('registered')
+                }
+            }
+        }))
+        return status.includes('registered')
     }
 }
 
