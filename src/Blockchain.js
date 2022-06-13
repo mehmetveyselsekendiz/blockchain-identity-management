@@ -72,6 +72,16 @@ class Blockchain{
         }
         return true
     }
+
+    giveaway_coin(giveaway_address, amount){
+        const block = new Block([new Transaction(null, giveaway_address, amount)])
+        block.previousHash = this.get_latest_block().hash
+        block.mine_block(this.nzeros)
+
+        console.log("Giveaway coin")
+        this.chain.push(block)
+
+    }
 }
 
 module.exports = Blockchain
