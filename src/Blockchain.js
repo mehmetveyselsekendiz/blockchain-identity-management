@@ -82,6 +82,16 @@ class Blockchain{
         this.chain.push(block)
 
     }
+
+    get_transactions_for_wallet(wallet){
+        const transactions = []
+
+        this.chain.forEach(block=>block.transactions.forEach(transaction=>{
+            if(transaction.from_address === wallet || transaction.to_address === wallet) transactions.push(transaction)
+        }))
+
+        return transactions
+    }
 }
 
 module.exports = Blockchain
