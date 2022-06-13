@@ -33,11 +33,23 @@ class Blockchain{
     add_transaction(transaction){
         if(!transaction.from_address || !transaction.to_address) throw new Error('Transaction must include from and to address.')
         if(!transaction.is_valid()) throw new Error('Cannot add invalid transaction.')
+        if(transaction.amount <= 0) throw new Error("Transaction amount must be higher than 0.")
+
+        const wallet_balance = this.get_address_balance(transaction.from_address)
+        if(wallet_balance < transaction.amount) throw new Error("Not enough balance")
+
+        const pending_transactions = this.pending_tansactions.filter(item=>item.from_address === transaction.from_address)
+        if(pending_transactions.length > 0){
+            const total_pending_amount = pending_transactions.map(item=>item.amount).reduce((prev,cur)=>prev+cur)
+        }
+
+        const total_amount = total_pending_amount + transaction.amount
+        if(total_amount > wallet_balance) throw new Error("Pending transactions are higher than wallet balance.")
 
         this.pending_tansactions.push(transaction)
     }
 
-    get_address_ballance(address){
+    get_address_balance(address){
         let balance = 0
         this.chain.forEach(block=>block.transactions.forEach(transaction=>{
             if(transaction.from_address === address) balance -= transaction.amount
