@@ -2,14 +2,16 @@ const sha256 = require("crypto-js/sha256");
 const ec = require("./Keygenerator")
 
 class Transaction{
-    constructor(from_address, to_address, amount){
+    constructor(from_address, to_address, amount, authority, register){
         this.from_address = from_address
         this.to_address = to_address
         this.amount = amount
+        this.authority = authority
+        this.register = register
     }
 
     calculate_hash(){
-        return sha256(JSON.stringify(this.amount) + this.from_address + this.to_address).toString()
+        return sha256(JSON.stringify(this.amount) + this.from_address + this.to_address + JSON.stringify(this.authority) + this.register).toString()
     }
 
     sign_transaction(sign_key){
@@ -22,6 +24,7 @@ class Transaction{
 
     is_valid(){
         if(this.from_address === null) return true
+        if(this.to_address === null) return true
         if(!this.signature || this.signature.length === 0) throw new Error('No signiture in this tansaction.')
 
         const public_key = ec.keyFromPublic(this.from_address, 'hex')
