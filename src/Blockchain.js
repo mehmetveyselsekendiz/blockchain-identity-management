@@ -36,15 +36,15 @@ class Blockchain{
         if(transaction.amount <= 0) throw new Error("Transaction amount must be higher than 0.")
 
         const wallet_balance = this.get_address_balance(transaction.from_address)
-        if(wallet_balance < transaction.amount) throw new Error("Not enough balance")
 
-        const pending_transactions = this.pending_tansactions.filter(item=>item.from_address === transaction.from_address)
-        if(pending_transactions.length > 0){
-            const total_pending_amount = pending_transactions.map(item=>item.amount).reduce((prev,cur)=>prev+cur)
-        }
+        const pending_transactions_spend = this.pending_tansactions.filter(item=>item.from_address === transaction.from_address)
+        const pending_transactions_get = this.pending_tansactions.filter(item=>item.to_address === transaction.from_address)
 
-        const total_amount = total_pending_amount + transaction.amount
-        if(total_amount > wallet_balance) throw new Error("Pending transactions are higher than wallet balance.")
+        const total_pending_amount_spend = pending_transactions_spend.length>0 ? pending_transactions_spend.map(item=>item.amount).reduce((prev,cur)=>prev+cur) : 0
+        const total_pending_amount_get = pending_transactions_get.length>0 ? pending_transactions_get.map(item=>item.amount).reduce((prev,cur)=>prev+cur) : 0
+        
+        const total_balance = wallet_balance + total_pending_amount_get - total_pending_amount_spend
+        if(total_balance < transaction.amount) throw new Error("Not enough balance.")
 
         this.pending_tansactions.push(transaction)
     }
