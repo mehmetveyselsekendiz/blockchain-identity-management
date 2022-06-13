@@ -6,4 +6,6 @@ This project is an implementation of an distance education system.
 - Every student has an id which is based on a blockchain wallet and they will use it for joining the classes.  
 - With the system also, education managment will get some control over students like limiting courses which students could join, tracing their attandence time.   
 
-reference: https://www.youtube.com/watch?v=zVqczFZr124
+reference: https://www.youtube.com/watch?v=zVqczFZr124  
+
+In the index page Register student, Authorize student, Join classes, Student track and Chain validation applications are done. Also we can add option for take student attendance for courses in next studies.
